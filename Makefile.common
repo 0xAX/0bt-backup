@@ -1,0 +1,80 @@
+#
+# Common build options
+#
+ARCH=x86_64
+
+# Flags that can be passed during build
+DEBUG ?=
+V ?=
+
+#
+# Build targets
+#
+DEFAULT = all
+CLEAN = clean
+HELP = help
+BUILD_IMAGE = image
+BUILD_BOOTLOADER = build-boot
+
+#
+# Standard tools
+#
+RM = rm -rf
+AS = as
+LD = ld
+DD = dd
+CC = gcc
+
+#
+# Generated files (mostly used for cleanups)
+#
+ISO = *.iso
+IMAGE = *.img
+BIN_FILES = *.bin
+OBJECT_FILES = *.o
+
+#
+# Common directories
+#
+SRC_DIR = src/
+X86_64_DIR = $(SRC_DIR)/$(ARCH)
+
+#
+# Disk options
+#
+DISK_IMAGE ?= disk.img
+DISK_SIZE ?= 4G
+
+#
+# Bootloader stages
+#
+STAGE0 = boot0_$(ARCH).bin
+
+#
+# Common utilities
+#
+DEV_NULL = /dev/null
+DEV_ZERO = /dev/zero
+TO_DEV_NULL = 2> $(DEV_NULL)
+
+#
+# set verbosity
+#
+ifndef V
+	QUIET_AS                = @echo '   ' AS $@;
+	QUIET_LD                = @echo '   ' LD $@;
+	QUIET_OBJS_CLEAN        = @echo '   ' RM $(OBJECT_FILES);
+	QUIET_DISK_CLEAN	= @echo '   ' RM $(IMAGE);
+	QUIET_ISO_CLEAN		= @echo '   ' RM $(ISO);
+	QUIET_DISC_CREATION     = @echo '   ' DD $(DISK_IMAGE);
+	QUIET_BIN_CLEAN         = @echo '   ' RM $(BIN_FILES);
+	MAKE_FLAGS = -s
+else
+	QUIET_AS=
+	QUET_LD=
+	QUIET_OBJS_CLEAN= 
+	QUIET_DISK_CLEAN=
+	QUIET_ISO_CLEAN=
+	QUIET_DISC_CREATION=
+	MAKE_FLAGS=
+endif
