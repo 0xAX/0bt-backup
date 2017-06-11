@@ -6,6 +6,8 @@ ARCH=x86_64
 # Flags that can be passed during build
 DEBUG ?=
 V ?=
+DISK_IMAGE ?= disk.img
+DISK_SIZE ?= 4G
 
 #
 # Build targets
@@ -41,12 +43,6 @@ OBJECT_FILES = *.o
 #
 SRC_DIR = src/
 X86_64_DIR = $(SRC_DIR)/$(ARCH)
-
-#
-# Disk options
-#
-DISK_IMAGE ?= disk.img
-DISK_SIZE ?= 4G
 
 #
 # Bootloader stages
