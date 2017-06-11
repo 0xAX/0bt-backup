@@ -10,3 +10,8 @@ least one document.
 
   * Add a target for building new initrd.
   * Put default initrd in `./initrds`.
+
+## Debugging
+
+  * Try to use tmux for creating two sessions. One for gdb and the second
+for qemu.
