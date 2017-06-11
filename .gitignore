@@ -2,3 +2,4 @@
 target
 *.img
 *.bin
+!mk/*

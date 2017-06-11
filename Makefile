@@ -9,7 +9,7 @@
 
 include Makefile.common
 
-.PHONY: help clean
+.PHONY: $(HELP) $(CLEAN)
 
 .DEFAULT_GOAL: $(DEFAULT)
 
@@ -22,7 +22,8 @@ $(BUILD_BOOTLOADER):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd)
 
 $(CLEAN):
-	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd) $(CLEAN)
+	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd) $@
+	@$(MAKE) $(MAKE_FLAGS) --makefile=mk/Makefile.img TOPDIR=$(shell pwd) $@
 
 $(HELP):
 	@echo "Common build targets:"

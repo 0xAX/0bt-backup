@@ -22,8 +22,11 @@ BUILD_BOOTLOADER = build-boot
 RM = rm -rf
 AS = as
 LD = ld
-DD = dd
 CC = gcc
+
+# file system and disk utils
+DD = dd
+MKFS_VFAT=mkfs.vfat
 
 #
 # Generated files (mostly used for cleanups)
@@ -68,6 +71,7 @@ ifndef V
 	QUIET_ISO_CLEAN		= @echo '   ' RM $(ISO);
 	QUIET_DISC_CREATION     = @echo '   ' DD $(DISK_IMAGE);
 	QUIET_BIN_CLEAN         = @echo '   ' RM $(BIN_FILES);
+	QUIET_DISK_VFAT_CREATE	= @echo '   ' MKFS.VFAT $(DISK_IMAGE)
 	MAKE_FLAGS = -s
 else
 	QUIET_AS=
@@ -76,5 +80,6 @@ else
 	QUIET_DISK_CLEAN=
 	QUIET_ISO_CLEAN=
 	QUIET_DISC_CREATION=
+	QUIET_DISC_VFAT_CREATE=
 	MAKE_FLAGS=
 endif
