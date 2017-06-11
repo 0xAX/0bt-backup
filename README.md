@@ -1,7 +1,8 @@
 # ∅bt
 
-The `0bt` is a simple linux kernel bootloader written in [️C++](https://en.wikipedia.org/wiki/C%2B%2B). The main purpose of which is to
-describe the linux kernel [boot protocol](https://www.kernel.org/doc/Documentation/x86/boot.txt) in action and to learn related low level stuff.
+The `0bt` is a simple linux kernel bootloader written in [️C++](https://en.wikipedia.org/wiki/C%2B%2B) and [assembly](https://en.wikipedia.org/wiki/Assembly_language).
+
+The main purpose of which is to describe the linux kernel [boot protocol](https://www.kernel.org/doc/Documentation/x86/boot.txt) in action and to learn related low level stuff.
 
 **Only `x86_64` architecture is supported now.**
 
@@ -14,6 +15,7 @@ The following programs and dependencies may be required:
   * [GNU GCC](https://gcc.gnu.org/)
   * [QEMU](http://www.qemu.org/)
   * [util-linux](https://github.com/karelzak/util-linux) for `fdisk`, `losetup` and other utils.
+  * [dosfstools](https://github.com/dosfstools/dosfstools) for `mkfs.vfat` and other tools.
 
 To build `0bt` from source code:
 
