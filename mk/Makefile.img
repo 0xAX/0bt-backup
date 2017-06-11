@@ -9,7 +9,7 @@ include Makefile.common
 .DEFAULT_GOAL: $(DISK_IMAGE)
 
 define create-disk-image
-	$(QUIET_DISC_CREATION) $(DD) if=$(DEV_ZERO) of=$1 \
+	$(QUIET_DISC_CREATE) $(DD) if=$(DEV_ZERO) of=$1 \
 	bs=1 count=0 seek="$2" $(TO_DEV_NULL) \
 	|| (echo "dd failed. Error code - $$?"; exit 1)
 endef
