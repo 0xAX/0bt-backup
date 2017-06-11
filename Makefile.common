@@ -65,7 +65,7 @@ ifndef V
 	QUIET_OBJS_CLEAN        = @echo '   ' RM $(OBJECT_FILES);
 	QUIET_DISK_CLEAN	= @echo '   ' RM $(IMAGE);
 	QUIET_ISO_CLEAN		= @echo '   ' RM $(ISO);
-	QUIET_DISC_CREATE     = @echo '   ' DD $(DISK_IMAGE);
+	QUIET_DISC_CREATE	= @echo '   ' DD $(DISK_IMAGE);
 	QUIET_BIN_CLEAN         = @echo '   ' RM $(BIN_FILES);
 	QUIET_DISK_VFAT_CREATE	= @echo '   ' MKFS.VFAT $(DISK_IMAGE)
 	MAKE_FLAGS = -s
