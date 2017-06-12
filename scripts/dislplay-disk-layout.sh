@@ -14,7 +14,7 @@ then
     exit 0
 fi
 
-echo "check-disk-layout.sh - display disk layout."
+echo "display-disk-layout.sh - display disk layout."
 echo "Usage:"
 echo "  * name - disk with the given name will be used."
 echo "  * no arguments - default $DEFAULT_DISK_IMAGE_NAME will be taken."
