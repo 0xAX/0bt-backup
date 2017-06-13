@@ -27,7 +27,7 @@ $(CLEAN):
 
 $(HELP):
 	@echo "Common build targets:"
-	@echo "  * image - Creante an empty disk.img image."
+	@echo "  * image - Create an empty disk.img image."
 	@echo 'Cleaning targets:'
 	@echo '  * clean - Remove most generated files, images and so on.'
 	@echo "Miscellaneous targets:"
