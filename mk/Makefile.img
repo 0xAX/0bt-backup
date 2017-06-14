@@ -4,19 +4,55 @@
 #
 include Makefile.common
 
-.PHONY: $(CLEAN)
+.PHONY: $(CLEAN) $(FILL_IMAGE)
 
 .DEFAULT_GOAL: $(DISK_IMAGE)
 
 define create-disk-image
 	$(QUIET_DISC_CREATE) $(DD) if=$(DEV_ZERO) of=$1 \
-	bs=1 count=0 seek="$2" $(TO_DEV_NULL) \
+	bs=1 count=0 seek=$2 $(STD_ERR_OUT_TO_DEV_NULL) \
 	|| (echo "dd failed. Error code - $$?"; exit 1)
+endef
+
+define create-partitions
+	(		\
+	echo n;		\
+	echo p;		\
+	echo 1;		\
+	echo "";	\
+	echo 1024000;	\
+	echo "";	\
+	echo n;		\
+	echo p;		\
+	echo "";	\
+	echo "";	\
+	echo "";	\
+	echo a;		\
+	echo 1;		\
+	echo w;		\
+	) | sudo fdisk $(DISK_IMAGE) $(STD_ERR_OUT_TO_DEV_NULL) \
+	|| (echo "fdisk failed. Error code - $$?"; exit 1)
 endef
 
 $(DISK_IMAGE):
 	$(call create-disk-image,$(DISK_IMAGE),$(DISK_SIZE))
-	$(QUIET_DISC_VFAT_CREATE) $(MKFS_VFAT) $(DISK_IMAGE)
+
+$(CREATE_DISK_PARTITIONS): $(DISK_IMAGE)
+	@echo "    FDISK $(DISK_IMAGE)"
+	$(call create-partitions)
+
+$(FORMAT_FAT_IMAGE):
+	@echo "    LOSETUP $(DISK_IMAGE)"
+#sudo losetup -o 1048576 --sizelimit=499M /dev/loop2 disk.img 
+#sudo losetup -o 1050673152 --sizelimit=3.5G /dev/loop3 disk.img 
+#sudo mkfs.vfat -F 32 /dev/loop2
+#sudo mkfs.vfat -F 32 /dev/loop3
+#sudo losetup -d /dev/loop2
+#sudo losetup -d /dev/loop3
+
+#	@echo "    MKFS VFAT $(DISK_IMAGE)"
+#	$(MKFS_VFAT) $(DISK_IMAGE) $(STD_ERR_OUT_TO_DEV_NULL) \
+#	|| (echo "$(MKFS_VFAT) failed. Error code -- $$?"; exit 1)
 
 $(CLEAN):
 	$(QUIET_DISK_CLEAN) $(RM) $(DISK_IMAGE)
