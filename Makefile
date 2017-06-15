@@ -16,10 +16,10 @@ include Makefile.common
 $(DEFAULT): $(BUILD_BOOTLOADER) $(BUILD_IMAGE)
 
 $(BUILD_IMAGE):
-	$(MAKE) $(MAKE_FLAGS) --makefile=mk/Makefile.img TOPDIR=$(shell pwd)
+	@$(MAKE) $(MAKE_FLAGS) --makefile=mk/Makefile.img TOPDIR=$(shell pwd)
 
 $(BUILD_BOOTLOADER):
-	$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd)
+	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd)
 
 $(CLEAN):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd) $@
