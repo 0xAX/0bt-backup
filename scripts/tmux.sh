@@ -2,17 +2,18 @@
 
 QEMU=qemu-system-x86_64
 SCREEN=0bt
+QEMU_OPTS="-nographic"
 
 do_setup() {
 
     tmux new -s $SCREEN \; detach
 
     echo Starting disk.img in qemu session
-    tmux new-window -n qemu "$QEMU \
+    tmux new-window -n qemu "$QEMU $QEMU_OPTS\
     -hda disk.img"
 
     echo Starting disk.img in gdb session
-    tmux new-window -n gdb "$QEMU -s -S \
+    tmux new-window -n gdb "$QEMU $QEMU_OPTS -s -S \
     -hda disk.img"
 }
 
@@ -24,8 +25,9 @@ do_teardown() {
 }
 
 do_usage() {
-    echo "tmux.sh -setup : will setup the 0bt session, And start qemu and gdb windows in the session."
-    echo "tmux.sh -teardown : will stop the KVM instances and close tmux session."
+    echo "Usage:"
+    echo "    tmux.sh -setup: Will setup the 0bt session, And start qemu and gdb windows in the session."
+    echo "    tmux.sh -teardown: Will stop the KVM instances and close tmux session."
 }
 
 case $1 in
