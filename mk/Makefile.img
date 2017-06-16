@@ -8,6 +8,8 @@ include Makefile.common
 
 .DEFAULT_GOAL: $(DISK_IMAGE)
 
+1M=1048576
+
 define create-disk-image
 	$(QUIET_DISC_CREATE) $(DD) if=$(DEV_ZERO) of=$1 \
 	bs=1 count=0 seek=$2 $(STD_ERR_OUT_TO_DEV_NULL) \
@@ -43,16 +45,14 @@ $(CREATE_DISK_PARTITIONS): $(DISK_IMAGE)
 
 $(FORMAT_FAT_IMAGE):
 	@echo "    LOSETUP $(DISK_IMAGE)"
-#sudo losetup -o 1048576 --sizelimit=499M /dev/loop2 disk.img 
-#sudo losetup -o 1050673152 --sizelimit=3.5G /dev/loop3 disk.img 
-#sudo mkfs.vfat -F 32 /dev/loop2
-#sudo mkfs.vfat -F 32 /dev/loop3
-#sudo losetup -d /dev/loop2
-#sudo losetup -d /dev/loop3
-
-#	@echo "    MKFS VFAT $(DISK_IMAGE)"
-#	$(MKFS_VFAT) $(DISK_IMAGE) $(STD_ERR_OUT_TO_DEV_NULL) \
-#	|| (echo "$(MKFS_VFAT) failed. Error code -- $$?"; exit 1)
+	sudo losetup -o 1M --sizelimit=499M /dev/loop2 $(DISK_IMAGE)
+	sudo losetup -o 500M --sizelimit=3.5G /dev/loop3 $(DISK_IMAGE)
+	@echo "    MKFS.VFAT loop"
+	sudo mkfs.vfat -F 32 /dev/loop2 $(STDOUT_TO_DEV_NULL)
+	sudo mkfs.vfat -F 32 /dev/loop3 $(STDOUT_TO_DEV_NULL)
+	@echo "    LOSETUP DETACH"
+	sudo losetup -d /dev/loop2
+	sudo losetup -d /dev/loop3
 
 $(CLEAN):
 	$(QUIET_DISK_CLEAN) $(RM) $(DISK_IMAGE)
