@@ -21,6 +21,11 @@ for qemu.
 
   * Add `0bt-install` program to install mbr.S to a given disk.
 
+## Scripts
+
+  * Add script to get current free loop device and make `FORMAT_FAT_IMAGE`
+target more configurable.
+
 ## Other
 
   * Add `Contributing.md`.
