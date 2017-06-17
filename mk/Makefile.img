@@ -1,3 +1,7 @@
+#  -*- Mode: makefile; indent-tabs-mode: t -*-
+#
+#  This file is part of 0bt. For more info see COPYING.
+
 #
 # mk/Makefile.img - main purpose of this makefile is to create disk
 # images and fill up them with content.

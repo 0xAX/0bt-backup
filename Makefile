@@ -1,11 +1,14 @@
+#  -*- Mode: makefile; indent-tabs-mode: t -*-
 #
-# Define V=1 for a more verbose build.
+#  This file is part of 0bt. For more info see COPYING.
 #
-# Define DEBUG=1 for compilation in debug mode.
+#  Define V=1 for a more verbose build.
 #
-# Define DISK_IMAGE = name.img to change default name of a disk image.
+#  Define DEBUG=1 for compilation in debug mode.
 #
-# Define DISK_SIZE = 1G to set an image size. Default is 4G.
+#  Define DISK_IMAGE = name.img to change default name of a disk image.
+#
+#  Define DISK_SIZE = 1G to set an image size. Default is 4G.
 
 include Makefile.common
 
