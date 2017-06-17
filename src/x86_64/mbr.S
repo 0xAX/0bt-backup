@@ -24,15 +24,6 @@
         .section ".boothdr", "ax"
 	.globl	_start
 _start:
-        /*
-         * Normally we should be loaded at 0x0000:0x7c00, but
-         * some buggy BIOSes begin execution at 07c0:0000.
-         *
-         * To fix this oddity, we execute a long jump at the
-         * predefined address.
-         */
-        ljmp $0x0000,$_start2
-_start2:
         /* we are not safe so, let's turn off interrupts */
         cli
 
