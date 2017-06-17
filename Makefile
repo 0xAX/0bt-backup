@@ -13,10 +13,14 @@ include Makefile.common
 
 .DEFAULT_GOAL: $(DEFAULT)
 
+IMG_MAKEFILE=--makefile=mk/Makefile.img
+
 $(DEFAULT): $(BUILD_BOOTLOADER) $(BUILD_IMAGE)
 
 $(BUILD_IMAGE):
-	@$(MAKE) $(MAKE_FLAGS) --makefile=mk/Makefile.img TOPDIR=$(shell pwd)
+	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd)
+	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd) $(CREATE_DISK_PARTITIONS)
+	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd) $(FORMAT_FAT_IMAGE)
 
 $(BUILD_BOOTLOADER):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd)

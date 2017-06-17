@@ -17,18 +17,14 @@ least one document.
   * Try to use tmux for creating two sessions. One for gdb and the second
 for qemu.
 
-## Scripts
-
-  * Check a disk existance before execution of fdisk in
-`scripts/dislplay-disk-layout.sh` and other scripts which use
-`sudo`.
-  * Use `sudo(8)` only if we are not root in all scripts.
-  * Add `check-deps` script to check existance of tools that we are
-using during build/testing.
-
 ## Tools
 
   * Add `0bt-install` program to install mbr.S to a given disk.
+
+## Scripts
+
+  * Add script to get current free loop device and make `FORMAT_FAT_IMAGE`
+target more configurable.
 
 ## Other
 
