@@ -1,2 +1,4 @@
 *.cc diff=cpp
 *.hh diff=cpp
+*.cpp diff=cpp
+*.hpp diff=cpp
