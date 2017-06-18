@@ -16,6 +16,7 @@ include Makefile.common
 
 .DEFAULT_GOAL: $(DEFAULT)
 
+VERSION = "0.0.1"
 IMG_MAKEFILE=--makefile=mk/Makefile.img
 
 $(DEFAULT): $(BUILD_BOOTLOADER) $(BUILD_IMAGE)
