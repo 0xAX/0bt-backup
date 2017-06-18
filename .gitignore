@@ -6,3 +6,4 @@ target
 .idea/
 *.hex
 0bt-install
+*.swp
