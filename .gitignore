@@ -5,3 +5,4 @@ target
 !mk/*
 .idea/
 *.hex
+0bt-install
