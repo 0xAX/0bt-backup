@@ -30,7 +30,7 @@ $(BUILD_BOOTLOADER):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd)
 
 $(TOOLS):
-	@$(MAKE) $(MAKE_FLAGS) -C tools TOPDIR=$(shell pwd)
+	@$(MAKE) $(MAKE_FLAGS) -C tools TOPDIR=$(shell pwd) VERSION=$(VERSION)
 
 # TODO this should be made by the 0bt-install util in future
 $(INSTALL):

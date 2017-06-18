@@ -12,4 +12,4 @@ $(DEFAULT): 0bt-install
 0bt-install-srcs = 0bt-install.cpp
 
 0bt-install: $(0bt-install-srcs)
-	$(CXX) $(0bt-install-srcs) -o $(TOPDIR)/$(0bt-install-bin)
+	$(CXX) $(0bt-install-srcs) -DVERSION=\"$(VERSION)\" -o $(TOPDIR)/$(0bt-install-bin)
