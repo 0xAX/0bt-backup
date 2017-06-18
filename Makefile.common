@@ -20,6 +20,7 @@ DEFAULT = all
 CLEAN = clean
 HELP = help
 TOOLS = tools
+INSTALL = install
 BUILD_IMAGE = image
 FORMAT_FAT_IMAGE = format-fat-image
 FORMAT_EXT2_IMAGE = format-ext2-image

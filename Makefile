@@ -12,7 +12,7 @@
 
 include Makefile.common
 
-.PHONY: $(HELP) $(CLEAN)
+.PHONY: $(HELP) $(CLEAN) $(TOOLS)
 
 .DEFAULT_GOAL: $(DEFAULT)
 
@@ -27,6 +27,14 @@ $(BUILD_IMAGE):
 
 $(BUILD_BOOTLOADER):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd)
+
+$(TOOLS):
+	@$(MAKE) $(MAKE_FLAGS) -C tools TOPDIR=$(shell pwd)
+
+# TODO this should be made by the 0bt-install util in future
+$(INSTALL):
+	dd if=src/x86_64/boot0_x86_64.bin of=disk.img conv=notrunc bs=446 count=1
+	dd if=src/x86_64/boot0_x86_64.bin of=disk.img conv=notrunc skip=1 count=1 seek=1 ibs=512
 
 $(CLEAN):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd) $@
