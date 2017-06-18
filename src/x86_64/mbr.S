@@ -44,8 +44,20 @@ _start:
         /* Ok, the stack is set up, now we can enable interrupts */
         sti
 
-        /* Loading of secondary bootloader */
-        hlt
+        /* TODO */
+read_chs:
+        movb $0x02, %ah
+        movb $0x01, %al
+        movb $0x00, %ch
+        movb $0x02, %cl
+        movb $0x00, %dh
+        movb $0x80, %dl
+
+        movw $0x7000, %bx
+        movw %bx, %es
+        xorw %bx, %bx
+       
+        int $0x13
 
         /* Call secondary bootloader */
-        call 0x7e00
+        jmp $0x7000,$0x0000

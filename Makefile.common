@@ -19,6 +19,7 @@ DISK_SIZE ?= 4G
 DEFAULT = all
 CLEAN = clean
 HELP = help
+TOOLS = tools
 BUILD_IMAGE = image
 FORMAT_FAT_IMAGE = format-fat-image
 FORMAT_EXT2_IMAGE = format-ext2-image

@@ -30,7 +30,7 @@ $(BUILD_BOOTLOADER):
 
 $(CLEAN):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd) $@
-	@$(MAKE) $(MAKE_FLAGS) --makefile=mk/Makefile.img TOPDIR=$(shell pwd) $@
+	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd) $@
 
 $(HELP):
 	@echo "Common build targets:"
