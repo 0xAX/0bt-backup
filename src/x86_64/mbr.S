@@ -1,6 +1,8 @@
-/* -*-Asm-*- */
-
 /*
+ * -*- Mode: asm; indent-tabs-mode: t -*-
+ *
+ * This file is part of 0bt. For more info see COPYING.
+ *
  * This is the entry point of the 0bt in a case when Master boot record
  * is used.
  *

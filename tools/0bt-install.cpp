@@ -13,8 +13,11 @@ using namespace std;
 
 static const char *default_disk_image = "disk.img";
 
+[[noreturn]]
 static void usage() {
 	cout << "0bt-install Ver - " << VERSION << endl;
+	cout << "Usage: 0bt-install [diskname]" << endl;
+	exit(0);
 }
 
 int main(int argc, char *argv[]) {
