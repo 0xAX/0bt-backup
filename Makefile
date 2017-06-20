@@ -19,8 +19,7 @@ include Makefile.common
 VERSION = "0.0.1"
 IMG_MAKEFILE=--makefile=mk/Makefile.img
 
-#$(DEFAULT): $(BUILD_BOOTLOADER) $(BUILD_IMAGE)
-$(DEFAULT): INITRD
+$(DEFAULT): $(BUILD_BOOTLOADER) $(BUILD_IMAGE)
 
 $(BUILD_IMAGE):
 	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd)
