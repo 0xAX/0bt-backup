@@ -88,3 +88,10 @@ else
 	QUIET_DISC_CREATE=
 	MAKE_FLAGS=
 endif
+
+#
+#set CXX
+#
+ifndef CXX 
+	CXX = g++
+endif

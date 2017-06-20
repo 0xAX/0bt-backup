@@ -11,7 +11,7 @@
 
 using namespace std;
 
-static const char *default_disk_namge = "disk.img";
+static const char *default_disk_image = "disk.img";
 
 static void usage() {
 	cout << "0bt-install Ver - " << VERSION << endl;
