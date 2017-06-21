@@ -49,8 +49,8 @@ $(CREATE_DISK_PARTITIONS): $(DISK_IMAGE)
 
 $(FORMAT_FAT_IMAGE):
 	@echo "    LOSETUP $(DISK_IMAGE)"
-	sudo losetup -o 1M --sizelimit=499M /dev/loop2 $(DISK_IMAGE)
-	sudo losetup -o 500M --sizelimit=3.5G /dev/loop3 $(DISK_IMAGE)
+	sudo losetup -o1048576 --sizelimit=499M /dev/loop2 $(DISK_IMAGE)
+	sudo losetup -o524288000 --sizelimit=3.5G /dev/loop3 $(DISK_IMAGE)
 	@echo "    MKFS.VFAT loop"
 	sudo mkfs.vfat -F 32 /dev/loop2 $(STDOUT_TO_DEV_NULL)
 	sudo mkfs.vfat -F 32 /dev/loop3 $(STDOUT_TO_DEV_NULL)
