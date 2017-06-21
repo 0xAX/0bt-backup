@@ -4,7 +4,7 @@ pushd $1/initrd
 
 mkdir {bin,sys,dev,proc,etc,lib}
 
-#fetch busybox as static lib
+# fetch busybox as static lib
 pushd bin
 
 wget https://busybox.net/downloads/binaries/1.21.1/busybox-x86_64 -O busybox
