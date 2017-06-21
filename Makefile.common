@@ -90,8 +90,8 @@ else
 endif
 
 #
-#set CXX
+# set CXX
 #
-ifndef CXX 
+ifndef CXX
 	CXX = g++
 endif
