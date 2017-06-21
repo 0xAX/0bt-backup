@@ -31,3 +31,5 @@ ln -s bin sbin
 find . | cpio -o -H newc | gzip > initrd.img
 
 cp initrd.img $1/initrd.img
+
+popd
