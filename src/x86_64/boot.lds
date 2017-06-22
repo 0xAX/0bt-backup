@@ -9,9 +9,11 @@ MBR_SIZE = 0x0200;
 /* MBR signature */
 MAGIC_SIGNATURE = 0xAA55;
 /* Size of a MBR signature in bytes */
-SIGNATURE_SIZE = 2      ;
+SIGNATURE_SIZE = 2;
 /* Offset to MBR signature */
 SIGNATURE_OFFSET = ENTRY_POINT + MBR_SIZE - SIGNATURE_SIZE;
+/* Offset to partition table */
+PARTITION_TABLE_OFFSET = 0x1be;
 
 SECTIONS
 {
