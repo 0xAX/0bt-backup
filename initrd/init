@@ -1,0 +1,8 @@
+#!/bin/ash
+mount -t proc /proc /proc
+mount -t sysfs none /sys
+echo
+echo "initrd is running"
+echo "Using BusyBox..."
+echo
+exec /bin/ash –login
