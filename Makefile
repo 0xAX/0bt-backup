@@ -37,9 +37,14 @@ $(INSTALL):
 	dd if=src/x86_64/boot0_x86_64.bin of=disk.img conv=notrunc bs=446 count=1
 	dd if=src/x86_64/boot0_x86_64.bin of=disk.img conv=notrunc skip=1 count=1 seek=1 ibs=512
 
+INITRD:
+	@echo Creating initrd
+	@$(MAKE) $(MAKE_FLAGS) -C initrd TOPDIR=$(shell pwd)
+
 $(CLEAN):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd) $@
 	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd) $@
+	@$(MAKE) $(MAKE_FLAGS) -C initrd TOPDIR=$(shell pwd) $@
 
 $(HELP):
 	@echo "Common build targets:"
