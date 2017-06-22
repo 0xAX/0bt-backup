@@ -1,5 +1,9 @@
-/* -*-Asm-*- */
-
+/*
+ * -*- Mode: asm; indent-tabs-mode: t -*-
+ *
+ * This file is part of 0bt. For more info see COPYING.
+ *
+ */
         .file "stage1.S"
 
         /* Tell GNU as to generate 16-bit code as we are in real mode */
