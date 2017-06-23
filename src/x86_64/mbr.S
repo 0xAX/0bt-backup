@@ -46,6 +46,9 @@ _start:
         /* Ok, the stack is set up, now we can enable interrupts */
         sti
 
+        /* save the disk number on the stack */
+        pushw %dx
+
         /* TODO */
 read_chs:
         movb $0x02, %ah
