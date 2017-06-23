@@ -46,6 +46,11 @@ _start:
         /* Ok, the stack is set up, now we can enable interrupts */
         sti
 
+        /* enable A20 gate */
+        inb $0x92, %al
+        orb 0x02, %al
+        outb %al, $0x92
+
         /* save the disk number on the stack */
         pushw %dx
 
