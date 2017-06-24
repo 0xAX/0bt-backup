@@ -12,7 +12,7 @@ include Makefile.common
 
 .DEFAULT_GOAL: $(DISK_IMAGE)
 
-1M=1048576
+POPULATE_DISK=./scripts/populate-disk.sh
 
 define create-disk-image
 	$(QUIET_DISC_CREATE) $(DD) if=$(DEV_ZERO) of=$1 \
@@ -48,15 +48,8 @@ $(CREATE_DISK_PARTITIONS): $(DISK_IMAGE)
 	$(call create-partitions)
 
 $(FORMAT_FAT_IMAGE):
-	@echo "    LOSETUP $(DISK_IMAGE)"
-	sudo losetup -o1048576 --sizelimit=499M /dev/loop2 $(DISK_IMAGE)
-	sudo losetup -o524288000 --sizelimit=3.5G /dev/loop3 $(DISK_IMAGE)
-	@echo "    MKFS.VFAT loop"
-	sudo mkfs.vfat -F 32 /dev/loop2 $(STDOUT_TO_DEV_NULL)
-	sudo mkfs.vfat -F 32 /dev/loop3 $(STDOUT_TO_DEV_NULL)
-	@echo "    LOSETUP DETACH"
-	sudo losetup -d /dev/loop2
-	sudo losetup -d /dev/loop3
+	@echo "    POPULATE $(DISK_IMAGE)"
+	$(POPULATE_DISK)
 
 $(CLEAN):
 	$(QUIET_DISK_CLEAN) $(RM) $(DISK_IMAGE)
