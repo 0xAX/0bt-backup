@@ -38,8 +38,6 @@ _start:
          * setup stack. the top of the stack will be right before
          * we were loaded
          */
-
-        movw %ax, %dx
         movw %ax, %ss
         movw $ENTRY_POINT, %sp
 
@@ -47,27 +45,33 @@ _start:
         sti
 
         /* enable A20 gate */
-        inb $0x92, %al
-        orb 0x02, %al
+        inb  $0x92, %al
+        orb  0x02, %al
         outb %al, $0x92
 
-        /* save the disk number on the stack */
-        pushw %dx
-
-        /* TODO */
-read_chs:
-        movb $0x02, %ah
-        movb $0x01, %al
-        movb $0x00, %ch
-        movb $0x02, %cl
-        movb $0x00, %dh
-        movb $0x80, %dl
-
-        movw $0x7000, %bx
-        movw %bx, %es
-        xorw %bx, %bx
-       
-        int $0x13
+        /* TODO add description here */
+read_second_stage:
+        movb $0x42, %ah
+	movw $disk_address_packet, %si
+        int  $0x13
 
         /* Call secondary bootloader */
-        jmp $0x7000,$0x0000
+        jmp $0x0000,$0x7e00
+
+        /* TODO add description */
+disk_address_packet:
+size:
+        .byte 0x10
+null:
+        .byte 0x00
+count:
+        .byte 0x01
+        .byte 0x00
+offset:
+        .word 0x7e00
+segment:
+        .word 0x0000
+lba:
+        .int 0x00000001
+lba48:
+        .int 0x00000000

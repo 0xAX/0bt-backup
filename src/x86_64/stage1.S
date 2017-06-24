@@ -11,11 +11,10 @@
 
         .section .text
 stage1:
-        mov $'b',  %al
+        mov $'K',  %al
         mov $0x0e, %ah
         mov $0x00, %bh
         mov $0x07, %bl
 
         int $0x10
         hlt
-
