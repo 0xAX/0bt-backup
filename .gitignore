@@ -7,3 +7,4 @@ target
 *.hex
 0bt-install
 *.swp
+*.dump
