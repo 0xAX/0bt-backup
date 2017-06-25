@@ -21,6 +21,15 @@ for qemu.
 
   * Add `0bt-install` program to install mbr.S to a given disk.
 
+## MBR stage 0
+
+  * Add checks for LBA:
+
+1. are we able to use extended read or not
+2. was reading successful or not
+
+  * Fallback to reading using CHS.
+
 ## Scripts
 
   * Add script to get current free loop device and make `FORMAT_FAT_IMAGE`
