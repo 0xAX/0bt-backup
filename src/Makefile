@@ -4,9 +4,9 @@
 
 include $(TOPDIR)/Makefile.common
 
-all: $(STAGE0)
+all: arch
 
-$(STAGE0):
+arch:
 	@$(MAKE) $(MAKE_FLAGS) -C $(TOPDIR)/$(SRC_DIR)$(ARCH) all TOPDIR=$(TOPDIR)
 
 $(CLEAN):
