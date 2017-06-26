@@ -2,7 +2,6 @@
 
 ## Build
 
-  * Set `CC` to `gcc` if it is not set.
   * `CXX_FLAGS` should be put in order.
   * Add `pdfdocs` target to makefile when `Documentation` will be filled with at
 least one document.

@@ -101,3 +101,10 @@ endif
 ifndef CXX
 	CXX = g++
 endif
+
+#
+# set CC
+#
+ifndef CC
+	CC = gcc
+endif
