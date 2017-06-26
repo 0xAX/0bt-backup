@@ -2,9 +2,9 @@
 
 function check_deb() {
     if [[ -x $1 ]]; then
-      echo -e "\e[39m`$1 --version | head $3` \e[32m[OK]"
+      echo -e "\e[39m`$1 --version | head $3` \e[32m[OK]\e[0m"
     else
-      echo -e "\e[39m$2 not found \033[31m[NOT OK]"
+      echo -e "\e[39m$2 not found \033[31m[NOT OK]\e[0m"
     fi
 }
 
