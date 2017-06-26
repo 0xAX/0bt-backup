@@ -15,7 +15,7 @@ then
     exit 0
 fi
 
-echo "display-mbr.sh - display MBR of a given disk"
+echo "dump-mbr.sh - dump a MBR of a given disk"
 echo "Usage:"
 echo "  * name - disk with the given name will be used."
 echo "  * no arguments - default $DEFAULT_DISK_IMAGE_NAME will be taken."
