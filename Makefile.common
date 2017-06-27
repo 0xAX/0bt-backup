@@ -18,6 +18,7 @@ DISK_SIZE ?= 4G
 #
 DEFAULT = all
 CLEAN = clean
+CLEAN_DISK = clean_image
 HELP = help
 TOOLS = tools
 INSTALL = install
@@ -57,6 +58,7 @@ X86_64_DIR = $(SRC_DIR)/$(ARCH)
 # Bootloader stages
 #
 STAGE0 = boot0_$(ARCH).bin
+STAGE1 = boot1_$(ARCH).bin
 
 #
 # Common utilities
@@ -73,6 +75,8 @@ STD_ERR_OUT_TO_DEV_NULL = >/dev/null 2>&1
 ifndef V
 	QUIET_AS                = @echo '   ' AS $@;
 	QUIET_LD                = @echo '   ' LD $@;
+	QUIET_CC                = @echo '   ' CC $@;
+	QUIET_CPP               = @echo '   ' CPP $@;
 	QUIET_OBJS_CLEAN        = @echo '   ' RM $(OBJECT_FILES);
 	QUIET_DISK_CLEAN	= @echo '   ' RM $(IMAGE);
 	QUIET_ISO_CLEAN		= @echo '   ' RM $(ISO);
@@ -82,6 +86,8 @@ ifndef V
 else
 	QUIET_AS=
 	QUET_LD=
+	QUIET_CC=
+	QUET_CPP=
 	QUIET_OBJS_CLEAN= 
 	QUIET_DISK_CLEAN=
 	QUIET_ISO_CLEAN=
@@ -94,4 +100,11 @@ endif
 #
 ifndef CXX
 	CXX = g++
+endif
+
+#
+# set CC
+#
+ifndef CC
+	CC = gcc
 endif
