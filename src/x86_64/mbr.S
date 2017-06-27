@@ -58,6 +58,8 @@ read_second_stage:
         /* Call secondary bootloader */
         jmp $0x0000,$0x7e00
 
+        /* We shouldn't be here never */
+        hlt
         /* TODO add description */
 disk_address_packet:
 size:
@@ -65,7 +67,7 @@ size:
 null:
         .byte 0x00
 count:
-        .byte 0x01
+        .byte 0x20
         .byte 0x00
 offset:
         .word 0x7e00
