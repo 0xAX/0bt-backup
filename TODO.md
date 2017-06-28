@@ -26,11 +26,6 @@ least one document.
 
   * Add `-DSERIAL_CONSOLE` support.
 
-## Scripts
-
-  * Add script to get current free loop device and make `FORMAT_FAT_IMAGE`
-target more configurable.
-
 ## Other
 
   * Add `Contributing.md`.
