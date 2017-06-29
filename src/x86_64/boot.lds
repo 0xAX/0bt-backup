@@ -28,11 +28,4 @@ SECTIONS
         {
                 SHORT(MAGIC_SIGNATURE);
         }
-
-        .text :
-        {
-                *(.text)
-        }
-
-        _end = .;
 } 

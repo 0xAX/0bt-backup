@@ -12,7 +12,7 @@
 
 include Makefile.common
 
-.PHONY: $(HELP) $(CLEAN) $(TOOLS)
+.PHONY: $(HELP) $(CLEAN) $(TOOLS) $(CLEAN_IMAGE)
 
 .DEFAULT_GOAL: $(DEFAULT)
 
@@ -35,7 +35,10 @@ $(TOOLS):
 # TODO this should be made by the 0bt-install util in future
 $(INSTALL):
 	dd if=src/x86_64/boot0_x86_64.bin of=disk.img conv=notrunc bs=446 count=1
-	dd if=src/x86_64/boot0_x86_64.bin of=disk.img conv=notrunc skip=1 count=1 seek=1 ibs=512
+	dd if=src/x86_64/boot1_x86_64.bin of=disk.img conv=notrunc count=3 seek=1 ibs=512
+
+run:
+	qemu-system-x86_64 -drive format=raw,file=disk.img
 
 INITRD:
 	@echo Creating initrd
@@ -43,8 +46,10 @@ INITRD:
 
 $(CLEAN):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd) $@
-	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd) $@
 	@$(MAKE) $(MAKE_FLAGS) -C initrd TOPDIR=$(shell pwd) $@
+
+$(CLEAN_DISK):
+	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd) $(CLEAN)
 
 $(HELP):
 	@echo "Common build targets:"
