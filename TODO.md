@@ -6,7 +6,6 @@
 least one document.
   * Add better description to `make image` target in `make help` output.
   * Add `Vagrantfile`.
-  * Add clean_all target.
 
 ## Tools
 

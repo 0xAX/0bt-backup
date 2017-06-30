@@ -19,6 +19,7 @@ DISK_SIZE ?= 4G
 DEFAULT = all
 CLEAN = clean
 CLEAN_DISK = clean_image
+CLEAN_ALL = clean_all
 HELP = help
 TOOLS = tools
 INSTALL = install
