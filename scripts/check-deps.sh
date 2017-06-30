@@ -1,17 +1,28 @@
 #!/bin/bash
 
-function check_deb() {
-    if [[ -x $1 ]]; then
-      echo -e "\e[39m`$1 --version | head $3` \e[32m[OK]\e[0m"
+function check_dependency() {
+    program=$(whereis "$1" | awk '{print $2}')
+    if [[ -z $program ]];
+    then
+        echo -e "\e[39m$1 is not found \033[31m[NOT OK]\e[0m"
+        exit 1
     else
-      echo -e "\e[39m$2 not found \033[31m[NOT OK]\e[0m"
+        echo -e "\e[39m$1 OK \e[32m[OK]\e[0m"
     fi
 }
 
-check_deb /usr/bin/ld ld -n1
-check_deb /usr/bin/make make -n1
-check_deb /usr/bin/gcc gcc -n1
-check_deb /usr/bin/qemu-system-x86_64 qemu-system-x86_64 -n1
-check_deb /sbin/fdisk fdisk -n1
-check_deb /sbin/losetup losetup -n1
-check_deb /sbin/mkfs.ntfs mkfs.ntfs -n2
+check_dependency ld
+check_dependency gcc
+check_dependency g++
+check_dependency fdisk
+check_dependency mkfs.vfat
+check_dependency mkfs.ext2
+check_dependency as
+check_dependency sed
+check_dependency dd
+check_dependency find
+check_dependency bc
+check_dependency hexdump
+check_dependency mount
+check_dependency getopt
+check_dependency tar

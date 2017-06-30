@@ -8,3 +8,4 @@ target
 0bt-install
 *.swp
 *.dump
+a.out

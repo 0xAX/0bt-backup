@@ -7,11 +7,10 @@ then
     if [[ -f $DEFAULT_DISK_IMAGE_NAME ]]; then
         if [[ "$(id -u)" -eq "0" ]]; then
             fdisk -l $DEFAULT_DISK_IMAGE_NAME
-            exit 0
         else
             sudo fdisk -l $DEFAULT_DISK_IMAGE_NAME
-            exit 0
         fi
+        exit 0
     fi
 fi
 
@@ -20,11 +19,10 @@ then
     if [[ -f $1 ]]; then
         if [[ "$(id -u)" -eq "0" ]]; then
             fdisk -l $1
-            exit 0
         else
             sudo fdisk -l $1
-            exit 0
         fi
+        exit 0
     fi
 fi
 

@@ -6,20 +6,19 @@ QEMU_OPTS="-nographic"
 IMG=disk.img
 
 do_setup() {
-    
     if [[ -n "$1" ]];
     then
         IMG=$1
     elif [[ ! -f "$IMG" ]];
     then
         echo "$IMG file not exist"
-        exit 0
+        exit 1
     fi
 
     tmux new -s $SCREEN \; detach
 
     echo "Starting $IMG in qemu session"
-    tmux new-window -n qemu "$QEMU $QEMU_OPTS\
+    tmux new-window -n qemu "$QEMU $QEMU_OPTS \
     -hda $IMG"
 
     echo "Starting $IMG in gdb session"
@@ -48,3 +47,5 @@ case $1 in
     *)
         do_usage ;;
 esac
+
+exit 0
