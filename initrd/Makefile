@@ -1,3 +1,8 @@
+#  -*- Mode: makefile; indent-tabs-mode: t -*-
+#
+#  This file is part of 0bt. For more info see COPYING.
+
+.PHONY: CREATE_INIT
 
 .DEFAULT_GOAL: CREATE_INIT
 

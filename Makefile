@@ -12,7 +12,8 @@
 
 include Makefile.common
 
-.PHONY: $(HELP) $(CLEAN) $(TOOLS) $(CLEAN_IMAGE) $(CLEAN_ALL)
+.PHONY: $(HELP) $(CLEAN) $(TOOLS) $(CLEAN_IMAGE) $(CLEAN_ALL) \
+	$(BUILD_INITRD)
 
 .DEFAULT_GOAL: $(DEFAULT)
 
