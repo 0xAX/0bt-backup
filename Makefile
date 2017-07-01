@@ -58,10 +58,17 @@ $(CLEAN_ALL): $(CLEAN) $(CLEAN_DISK) $(CLEAN_INITRD)
 
 $(HELP):
 	@echo "Common build targets:"
+	@echo "  * build-boot - build source code (will be runned by default)"
 	@echo "  * image - Create an empty disk.img image."
+	@echo "  * initrd - Build initrd image."
+	@echo "  * run - Run image with installed bootloader in qemu."
+	@echo "  * tools - build 0bt utils from 0bt/tools directory."
+	@echo
 	@echo 'Cleaning targets:'
 	@echo '  * clean - Remove executables, object files and so on.'
 	@echo '  * clean_image - Remove *.img files.'
+	@echo '  * clean_initrd - Remove initrd.img and related files.'
 	@echo '  * clean_all - Both clean and clean_image.'
+	@echo
 	@echo "Miscellaneous targets:"
 	@echo '  * help      - Print this output.'
