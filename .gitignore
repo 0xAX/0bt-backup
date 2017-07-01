@@ -9,3 +9,14 @@ target
 *.swp
 *.dump
 a.out
+initrd/bin/ash
+initrd/bin/busybox
+initrd/bin/cat
+initrd/bin/dmesg
+initrd/bin/echo
+initrd/bin/ls
+initrd/bin/mount
+initrd/bin/ps
+initrd/bin/sh
+initrd/bin/sysctl
+initrd/sbin
