@@ -7,6 +7,11 @@
 #
 ARCH=$(shell uname -m)
 
+ifeq ($(ARCH), x86_64)
+        ARCH := x86
+endif
+
+
 # Flags that can be passed during build
 DEBUG ?=
 V ?=

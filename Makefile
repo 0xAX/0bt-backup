@@ -34,11 +34,11 @@ $(TOOLS):
 
 # TODO this should be made by the 0bt-install util in future
 $(INSTALL):
-	dd if=src/x86_64/boot0_x86_64.bin of=disk.img conv=notrunc bs=446 count=1
-	dd if=src/x86_64/boot1_x86_64.bin of=disk.img conv=notrunc count=3 seek=1 ibs=512
+	$(DD) if=src/$(ARCH)/$(STAGE0) of=$(DISK_IMAGE) conv=notrunc bs=446 count=1
+	$(DD) if=src/$(ARCH)/$(STAGE1) of=$(DISK_IMAGE) conv=notrunc count=3 seek=1 ibs=512
 
 run:
-	qemu-system-x86_64 -drive format=raw,file=disk.img
+	qemu-system-x86_64 -drive format=raw,file=$(DISK_IMAGE)
 
 INITRD:
 	@echo Creating initrd
