@@ -44,6 +44,7 @@ CXX_FLAGS += -fno-toplevel-reorder
 CXX_FLAGS += -nostdlib --entry stage1_main -c
 
 CXX_ARCH_FLAGS += -march=i386 -m32 -mregparm=3
+CXX_ARCH_64_BIT_FLAGS += -mcmodel=small -m64
 
 all: $(STAGE1) $(STAGE0)
 
