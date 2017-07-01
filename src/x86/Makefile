@@ -41,17 +41,20 @@ CXX_FLAGS  = -std=c++14
 CXX_FLAGS += -fno-rtti -fno-strict-aliasing -fno-pic -fno-exceptions
 CXX_FLAGS += -fno-stack-protector -fno-delete-null-pointer-checks
 CXX_FLAGS += -fno-toplevel-reorder
-CXX_FLAGS += -nostdlib --entry stage1_main -c
+CXX_FLAGS += -nostdlib -c
 
+CXX_ARCH_32_BIT_ENTRY = --entry stage1_main
 CXX_ARCH_32_BIT_FLAGS += -march=i386 -m32 -mregparm=3
+
 CXX_ARCH_64_BIT_FLAGS += -mcmodel=small -m64
+CXX_ARCH_64_BIT_ENTRY = --entry x86_64_main
 
 all: $(STAGE1) $(STAGE0)
 
 $(STAGE0): $(MBR)
 	$(QUIET_LD) $(LD) $(MBR_LD_FLAGS) $(MBR) -o $(STAGE0)
 
-$(STAGE1): $(STAGE1_OBJECTS)
+$(STAGE1): 64 $(STAGE1_OBJECTS)
 	$(QUIET_LD) $(LD) $(STAGE1_LD_FLAGS) $(STAGE1_OBJECTS) -o $(STAGE1)
 
 $(MBR): stage0/mbr.S
@@ -63,7 +66,13 @@ $(MBR): stage0/mbr.S
 	$(QUIET_CC) $(CC) $(AS_FLAGS) $< -o $@
 
 %.o : %.cpp
-	$(QUIET_CC) $(CXX) $(CXX_FLAGS) $(CXX_ARCH_32_BIT_FLAGS) $< -o $@
+	$(QUIET_CC) $(CXX) $(CXX_FLAGS) $(CXX_ARCH_32_BIT_FLAGS) \
+	$(CXX_ARCH_32_BIT_ENTRY) $< -o $@
+
+64:
+	@echo "    CC x86_64/longmode.o"
+	$(CXX) $(CXX_FLAGS) $(CXX_ARCH_64_BIT_FLAGS) \
+	$(CXX_ARCH_64_BIT_ENTRY) x86_64/longmode.cpp -o x86_64/longmode.o
 
 $(CLEAN):
 	$(QUIET_OBJS_CLEAN) $(RM) $(OBJECT_FILES)
