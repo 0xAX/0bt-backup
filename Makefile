@@ -13,7 +13,7 @@
 include Makefile.common
 
 .PHONY: $(HELP) $(CLEAN) $(TOOLS) $(CLEAN_IMAGE) $(CLEAN_ALL) \
-	$(BUILD_INITRD)
+	$(BUILD_INITRD) $(CLEAN_INITRD)
 
 .DEFAULT_GOAL: $(DEFAULT)
 
@@ -42,17 +42,19 @@ $(RUN):
 	qemu-system-x86_64 -drive format=raw,file=$(DISK_IMAGE)
 
 $(BUILD_INITRD):
-	@echo Creating initrd
+	@echo "    GEN initrd"
 	@$(MAKE) $(MAKE_FLAGS) -C initrd TOPDIR=$(shell pwd)
 
 $(CLEAN):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd) $@
-	@$(MAKE) $(MAKE_FLAGS) -C initrd TOPDIR=$(shell pwd) $@
 
 $(CLEAN_DISK):
 	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd) $(CLEAN)
 
-$(CLEAN_ALL): $(CLEAN) $(CLEAN_DISK)
+$(CLEAN_INITRD):
+	@$(MAKE) $(MAKE_FLAGS) -C initrd TOPDIR=$(shell pwd) $@
+
+$(CLEAN_ALL): $(CLEAN) $(CLEAN_DISK) $(CLEAN_INITRD)
 
 $(HELP):
 	@echo "Common build targets:"

@@ -2,20 +2,15 @@
 #
 #  This file is part of 0bt. For more info see COPYING.
 
-.PHONY: CREATE_INIT
+include $(TOPDIR)/Makefile.common
 
-.DEFAULT_GOAL: CREATE_INIT
+.PHONY: $(BUILD_INITRD) $(CLEAN_INITRD)
 
-CREATE_INIT:
-	./initrd.sh $(TOPDIR) >/dev/null 2>&1
+.DEFAULT_GOAL: $(BUILD_INITRD)
 
-clean:
-	rm -rf $(TOPDIR)/initrd/sbin \
-		$(TOPDIR)/initrd/bin/ \
-		$(TOPDIR)/initrd/dev/ \
-		$(TOPDIR)/initrd/etc/ \
-		$(TOPDIR)/initrd/lib/ \
-		$(TOPDIR)/initrd/proc/ \
-		$(TOPDIR)/initrd/sys/ \
-		$(TOPDIR)/initrd/initrd.img \
-		$(TOPDIR)/initrd.img
+$(BUILD_INITRD):
+	./initrd.sh $(TOPDIR) $(STD_ERR_OUT_TO_DEV_NULL)
+
+$(CLEAN_INITRD):
+	@echo "    RM initrd"
+	@$(RM) $(INITRD_FILES)
