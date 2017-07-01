@@ -14,7 +14,8 @@ MBR = stage0/mbr.o
 #
 STAGE1_OBJECTS += stage1.o
 STAGE1_OBJECTS += tty.o
-STAGE1_OBJECTS += stage0/asmutil.o
+STAGE1_OBJECTS += protmode.o
+STAGE1_OBJECTS += asmutil.o
 
 #
 # linker scripts
@@ -64,4 +65,6 @@ $(MBR): stage0/mbr.S
 
 $(CLEAN):
 	$(QUIET_OBJS_CLEAN) $(RM) $(OBJECT_FILES)
+	@echo "    RM stage0/*.o"
+	$(RM) stage0/$(OBJECT_FILES)
 	$(QUIET_BIN_CLEAN) $(RM) $(BIN_FILES)
