@@ -7,20 +7,20 @@ include $(TOPDIR)/Makefile.common
 #
 # boot sector objects
 #
-MBR = mbr.o
+MBR = stage0/mbr.o
 
 #
 # stage1 objects
 #
 STAGE1_OBJECTS += stage1.o
 STAGE1_OBJECTS += tty.o
-STAGE1_OBJECTS += asmutil.o
+STAGE1_OBJECTS += stage0/asmutil.o
 
 #
 # linker scripts
 #
-MBR_LINKER_SCRIPT = boot.lds
-STAGE1_LINKER_SCRIPT = stage2.lds
+MBR_LINKER_SCRIPT = stage0/mbr.lds
+STAGE1_LINKER_SCRIPT = stage1.lds
 
 #
 # linker flags
@@ -51,7 +51,7 @@ $(STAGE0): $(MBR)
 $(STAGE1): $(STAGE1_OBJECTS)
 	$(QUIET_LD) $(LD) $(STAGE1_LD_FLAGS) $(STAGE1_OBJECTS) -o $(STAGE1)
 
-$(MBR): mbr.S
+$(MBR): stage0/mbr.S
 	$(eval STAGE1_SIZE = $(shell wc -c $(STAGE1) | sed -e 's/\s.*//'))
 	$(eval SECTORS = $(shell echo $(STAGE1_SIZE) / 512 + 1 | bc))
 	$(QUIET_CC) $(CC) -DSTAGE1_SECTORS_SIZE=$(SECTORS) $(AS_FLAGS) $< -o $@
