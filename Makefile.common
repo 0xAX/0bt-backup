@@ -22,6 +22,8 @@ DISK_SIZE ?= 4G
 # Build targets
 #
 DEFAULT = all
+RUN = run
+BUILD_INITRD = initrd
 CLEAN = clean
 CLEAN_DISK = clean_image
 CLEAN_ALL = clean_all
@@ -40,7 +42,6 @@ CREATE_DISK_PARTITIONS = create-disk-partitions
 RM = rm -rf
 AS = as
 LD = ld
-CC = gcc
 
 # file system and disk utils
 DD = dd

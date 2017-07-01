@@ -37,10 +37,10 @@ $(INSTALL):
 	$(DD) if=src/$(ARCH)/$(STAGE0) of=$(DISK_IMAGE) conv=notrunc bs=446 count=1
 	$(DD) if=src/$(ARCH)/$(STAGE1) of=$(DISK_IMAGE) conv=notrunc count=3 seek=1 ibs=512
 
-run:
+$(RUN):
 	qemu-system-x86_64 -drive format=raw,file=$(DISK_IMAGE)
 
-INITRD:
+$(BUILD_INITRD):
 	@echo Creating initrd
 	@$(MAKE) $(MAKE_FLAGS) -C initrd TOPDIR=$(shell pwd)
 
