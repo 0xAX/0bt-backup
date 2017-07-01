@@ -17,9 +17,9 @@
  * BIOS call "INT 0x10 Function 0x0E" to display a character on the screen,
  * advancing the cursor and scrolling the screen as necessary.
  *
- *	Call with	%ah = 0x0e
+ *      Call with       %ah = 0x0e
  *                      %al = an ASCI character
- *			%bh = page number
+ *                      %bh = page number
  *                      %bl = foreground color (only in graphics mode)
  *
  * More info at - http://www.ctyme.com/intr/rb-0106.htm
@@ -41,13 +41,13 @@ print_char:
  *
  * The first call: moves cursor to the 0:0 -
  *
- *	Call with	%ah = 0x02
+ *     Call with        %ah = 0x02
  *                      %bx = row number
  *                      %dx = col number
  *
  * The second call: scrolls up window to clear screen -
  *
- *	Call with	%ah = 0x06
+ *     Call with        %ah = 0x06
  *                      %al = lines to scroll
  *                      %bx = background color and foreground color
  *                      %ch = upper row number

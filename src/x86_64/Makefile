@@ -43,16 +43,18 @@ CXX_FLAGS += -fno-stack-protector -fno-delete-null-pointer-checks
 CXX_FLAGS += -fno-toplevel-reorder
 CXX_FLAGS += -nostdlib --entry stage1_main -c
 
-all: $(STAGE0) $(STAGE1)
+all: $(STAGE1) $(STAGE0)
 
 $(STAGE0): $(MBR)
-	$(QUIET_LD) $(LD) $(MBR_LD_FLAGS) $(MBR_OBJECTS) -o $(STAGE0)
+	$(QUIET_LD) $(LD) $(MBR_LD_FLAGS) $(MBR) -o $(STAGE0)
 
 $(STAGE1): $(STAGE1_OBJECTS)
 	$(QUIET_LD) $(LD) $(STAGE1_LD_FLAGS) $(STAGE1_OBJECTS) -o $(STAGE1)
 
 $(MBR): mbr.S
-	$(QUIET_CC) $(CC) $(AS_FLAGS) $< -o $@
+	$(eval STAGE1_SIZE = $(shell wc -c $(STAGE1) | sed -e 's/\s.*//'))
+	$(eval SECTORS = $(shell echo $(STAGE1_SIZE) / 512 + 1 | bc))
+	$(QUIET_CC) $(CC) -DSTAGE1_SECTORS_SIZE=$(SECTORS) $(AS_FLAGS) $< -o $@
 
 %.o : %.S
 	$(QUIET_CC) $(CC) $(AS_FLAGS) $< -o $@

@@ -12,7 +12,7 @@
 
 include Makefile.common
 
-.PHONY: $(HELP) $(CLEAN) $(TOOLS) $(CLEAN_IMAGE)
+.PHONY: $(HELP) $(CLEAN) $(TOOLS) $(CLEAN_IMAGE) $(CLEAN_ALL)
 
 .DEFAULT_GOAL: $(DEFAULT)
 
@@ -51,10 +51,14 @@ $(CLEAN):
 $(CLEAN_DISK):
 	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd) $(CLEAN)
 
+$(CLEAN_ALL): $(CLEAN) $(CLEAN_DISK)
+
 $(HELP):
 	@echo "Common build targets:"
 	@echo "  * image - Create an empty disk.img image."
 	@echo 'Cleaning targets:'
-	@echo '  * clean - Remove most generated files, images and so on.'
+	@echo '  * clean - Remove executables, object files and so on.'
+	@echo '  * clean_image - Remove *.img files.'
+	@echo '  * clean_all - Both clean and clean_image.'
 	@echo "Miscellaneous targets:"
 	@echo '  * help      - Print this output.'
