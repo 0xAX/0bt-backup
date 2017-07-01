@@ -38,11 +38,12 @@ AS_FLAGS = -march=i386 -m16 -Wall -ffreestanding -c
 # Flags for C++ compiler
 #
 CXX_FLAGS  = -std=c++14
-CXX_FLAGS += -march=i386 -m32 -mregparm=3 
 CXX_FLAGS += -fno-rtti -fno-strict-aliasing -fno-pic -fno-exceptions
 CXX_FLAGS += -fno-stack-protector -fno-delete-null-pointer-checks
 CXX_FLAGS += -fno-toplevel-reorder
 CXX_FLAGS += -nostdlib --entry stage1_main -c
+
+CXX_ARCH_FLAGS += -march=i386 -m32 -mregparm=3
 
 all: $(STAGE1) $(STAGE0)
 
@@ -61,7 +62,7 @@ $(MBR): stage0/mbr.S
 	$(QUIET_CC) $(CC) $(AS_FLAGS) $< -o $@
 
 %.o : %.cpp
-	$(QUIET_CC) $(CXX) $(CXX_FLAGS) $< -o $@
+	$(QUIET_CC) $(CXX) $(CXX_FLAGS) $(CXX_ARCH_FLAGS) $< -o $@
 
 $(CLEAN):
 	$(QUIET_OBJS_CLEAN) $(RM) $(OBJECT_FILES)
