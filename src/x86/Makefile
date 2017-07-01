@@ -43,7 +43,7 @@ CXX_FLAGS += -fno-stack-protector -fno-delete-null-pointer-checks
 CXX_FLAGS += -fno-toplevel-reorder
 CXX_FLAGS += -nostdlib --entry stage1_main -c
 
-CXX_ARCH_FLAGS += -march=i386 -m32 -mregparm=3
+CXX_ARCH_32_BIT_FLAGS += -march=i386 -m32 -mregparm=3
 CXX_ARCH_64_BIT_FLAGS += -mcmodel=small -m64
 
 all: $(STAGE1) $(STAGE0)
@@ -63,7 +63,7 @@ $(MBR): stage0/mbr.S
 	$(QUIET_CC) $(CC) $(AS_FLAGS) $< -o $@
 
 %.o : %.cpp
-	$(QUIET_CC) $(CXX) $(CXX_FLAGS) $(CXX_ARCH_FLAGS) $< -o $@
+	$(QUIET_CC) $(CXX) $(CXX_FLAGS) $(CXX_ARCH_32_BIT_FLAGS) $< -o $@
 
 $(CLEAN):
 	$(QUIET_OBJS_CLEAN) $(RM) $(OBJECT_FILES)
