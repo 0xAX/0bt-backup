@@ -2,10 +2,18 @@
 #
 #  This file is part of 0bt. For more info see COPYING.
 
+# root directory
+TOPDIR=$(shell pwd)
+
 #
 # Common build options
 #
-ARCH=x86_64
+ARCH=$(shell uname -m)
+
+ifeq ($(ARCH), x86_64)
+        ARCH := x86
+endif
+
 
 # Flags that can be passed during build
 DEBUG ?=
@@ -17,8 +25,11 @@ DISK_SIZE ?= 4G
 # Build targets
 #
 DEFAULT = all
+RUN = run
+BUILD_INITRD = initrd
 CLEAN = clean
 CLEAN_DISK = clean_image
+CLEAN_INITRD = clean_initrd
 CLEAN_ALL = clean_all
 HELP = help
 TOOLS = tools
@@ -35,7 +46,6 @@ CREATE_DISK_PARTITIONS = create-disk-partitions
 RM = rm -rf
 AS = as
 LD = ld
-CC = gcc
 
 # file system and disk utils
 DD = dd
@@ -48,6 +58,15 @@ ISO = *.iso
 IMAGE = *.img
 BIN_FILES = *.bin
 OBJECT_FILES = *.o
+INITRD_FILES = $(TOPDIR)/initrd/sbin \
+		$(TOPDIR)/initrd/bin/ \
+		$(TOPDIR)/initrd/dev/ \
+		$(TOPDIR)/initrd/etc/ \
+		$(TOPDIR)/initrd/lib/ \
+		$(TOPDIR)/initrd/proc/ \
+		$(TOPDIR)/initrd/sys/ \
+		$(TOPDIR)/initrd/initrd.img \
+		$(TOPDIR)/initrd.img
 
 #
 # Common directories
@@ -83,6 +102,7 @@ ifndef V
 	QUIET_ISO_CLEAN		= @echo '   ' RM $(ISO);
 	QUIET_DISC_CREATE	= @echo '   ' DD $(DISK_IMAGE);
 	QUIET_BIN_CLEAN         = @echo '   ' RM $(BIN_FILES);
+	QUIET_INITRD_CLEAN	= @echo '   ' RM initrd
 	MAKE_FLAGS = -s
 else
 	QUIET_AS=
@@ -93,6 +113,7 @@ else
 	QUIET_DISK_CLEAN=
 	QUIET_ISO_CLEAN=
 	QUIET_DISC_CREATE=
+	QUIET_INITRD_CLEAN=
 	MAKE_FLAGS=
 endif
 

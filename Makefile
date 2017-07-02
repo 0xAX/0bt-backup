@@ -12,7 +12,8 @@
 
 include Makefile.common
 
-.PHONY: $(HELP) $(CLEAN) $(TOOLS) $(CLEAN_IMAGE) $(CLEAN_ALL)
+.PHONY: $(HELP) $(CLEAN) $(TOOLS) $(CLEAN_IMAGE) $(CLEAN_ALL) \
+	$(BUILD_INITRD) $(CLEAN_INITRD)
 
 .DEFAULT_GOAL: $(DEFAULT)
 
@@ -34,31 +35,40 @@ $(TOOLS):
 
 # TODO this should be made by the 0bt-install util in future
 $(INSTALL):
-	dd if=src/x86_64/boot0_x86_64.bin of=disk.img conv=notrunc bs=446 count=1
-	dd if=src/x86_64/boot1_x86_64.bin of=disk.img conv=notrunc count=3 seek=1 ibs=512
+	$(DD) if=src/$(ARCH)/$(STAGE0) of=$(DISK_IMAGE) conv=notrunc bs=446 count=1
+	$(DD) if=src/$(ARCH)/$(STAGE1) of=$(DISK_IMAGE) conv=notrunc count=3 seek=1 ibs=512
 
-run:
-	qemu-system-x86_64 -drive format=raw,file=disk.img
+$(RUN):
+	qemu-system-x86_64 -drive format=raw,file=$(DISK_IMAGE)
 
-INITRD:
-	@echo Creating initrd
+$(BUILD_INITRD):
+	@echo "    GEN initrd"
 	@$(MAKE) $(MAKE_FLAGS) -C initrd TOPDIR=$(shell pwd)
 
 $(CLEAN):
 	@$(MAKE) $(MAKE_FLAGS) -C src/ TOPDIR=$(shell pwd) $@
-	@$(MAKE) $(MAKE_FLAGS) -C initrd TOPDIR=$(shell pwd) $@
 
 $(CLEAN_DISK):
 	@$(MAKE) $(MAKE_FLAGS) $(IMG_MAKEFILE) TOPDIR=$(shell pwd) $(CLEAN)
 
-$(CLEAN_ALL): $(CLEAN) $(CLEAN_DISK)
+$(CLEAN_INITRD):
+	@$(MAKE) $(MAKE_FLAGS) -C initrd TOPDIR=$(shell pwd) $@
+
+$(CLEAN_ALL): $(CLEAN) $(CLEAN_DISK) $(CLEAN_INITRD)
 
 $(HELP):
 	@echo "Common build targets:"
+	@echo "  * build-boot - build source code (will be runned by default)"
 	@echo "  * image - Create an empty disk.img image."
+	@echo "  * initrd - Build initrd image."
+	@echo "  * run - Run image with installed bootloader in qemu."
+	@echo "  * tools - build 0bt utils from 0bt/tools directory."
+	@echo
 	@echo 'Cleaning targets:'
 	@echo '  * clean - Remove executables, object files and so on.'
 	@echo '  * clean_image - Remove *.img files.'
+	@echo '  * clean_initrd - Remove initrd.img and related files.'
 	@echo '  * clean_all - Both clean and clean_image.'
+	@echo
 	@echo "Miscellaneous targets:"
 	@echo '  * help      - Print this output.'

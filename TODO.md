@@ -4,7 +4,6 @@
 
   * Add `pdfdocs` target to makefile when `Documentation` will be filled with at
 least one document.
-  * Add better description to `make image` target in `make help` output.
   * Add `Vagrantfile`.
 
 ## Tools

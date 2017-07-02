@@ -7,20 +7,21 @@ include $(TOPDIR)/Makefile.common
 #
 # boot sector objects
 #
-MBR = mbr.o
+MBR = stage0/mbr.o
 
 #
 # stage1 objects
 #
 STAGE1_OBJECTS += stage1.o
 STAGE1_OBJECTS += tty.o
+STAGE1_OBJECTS += protmode.o
 STAGE1_OBJECTS += asmutil.o
 
 #
 # linker scripts
 #
-MBR_LINKER_SCRIPT = boot.lds
-STAGE1_LINKER_SCRIPT = stage2.lds
+MBR_LINKER_SCRIPT = stage0/mbr.lds
+STAGE1_LINKER_SCRIPT = stage1.lds
 
 #
 # linker flags
@@ -37,21 +38,26 @@ AS_FLAGS = -march=i386 -m16 -Wall -ffreestanding -c
 # Flags for C++ compiler
 #
 CXX_FLAGS  = -std=c++14
-CXX_FLAGS += -march=i386 -m32 -mregparm=3 
 CXX_FLAGS += -fno-rtti -fno-strict-aliasing -fno-pic -fno-exceptions
 CXX_FLAGS += -fno-stack-protector -fno-delete-null-pointer-checks
 CXX_FLAGS += -fno-toplevel-reorder
-CXX_FLAGS += -nostdlib --entry stage1_main -c
+CXX_FLAGS += -nostdlib -c
+
+CXX_ARCH_32_BIT_ENTRY = --entry stage1_main
+CXX_ARCH_32_BIT_FLAGS += -march=i386 -m32 -mregparm=3
+
+CXX_ARCH_64_BIT_FLAGS += -mcmodel=small -m64
+CXX_ARCH_64_BIT_ENTRY = --entry x86_64_main
 
 all: $(STAGE1) $(STAGE0)
 
 $(STAGE0): $(MBR)
 	$(QUIET_LD) $(LD) $(MBR_LD_FLAGS) $(MBR) -o $(STAGE0)
 
-$(STAGE1): $(STAGE1_OBJECTS)
+$(STAGE1): 64 $(STAGE1_OBJECTS)
 	$(QUIET_LD) $(LD) $(STAGE1_LD_FLAGS) $(STAGE1_OBJECTS) -o $(STAGE1)
 
-$(MBR): mbr.S
+$(MBR): stage0/mbr.S
 	$(eval STAGE1_SIZE = $(shell wc -c $(STAGE1) | sed -e 's/\s.*//'))
 	$(eval SECTORS = $(shell echo $(STAGE1_SIZE) / 512 + 1 | bc))
 	$(QUIET_CC) $(CC) -DSTAGE1_SECTORS_SIZE=$(SECTORS) $(AS_FLAGS) $< -o $@
@@ -60,8 +66,16 @@ $(MBR): mbr.S
 	$(QUIET_CC) $(CC) $(AS_FLAGS) $< -o $@
 
 %.o : %.cpp
-	$(QUIET_CC) $(CXX) $(CXX_FLAGS) $< -o $@
+	$(QUIET_CC) $(CXX) $(CXX_FLAGS) $(CXX_ARCH_32_BIT_FLAGS) \
+	$(CXX_ARCH_32_BIT_ENTRY) $< -o $@
+
+64:
+	@echo "    CC x86_64/longmode.o"
+	$(CXX) $(CXX_FLAGS) $(CXX_ARCH_64_BIT_FLAGS) \
+	$(CXX_ARCH_64_BIT_ENTRY) x86_64/longmode.cpp -o x86_64/longmode.o
 
 $(CLEAN):
 	$(QUIET_OBJS_CLEAN) $(RM) $(OBJECT_FILES)
+	@echo "    RM stage0/*.o"
+	$(RM) stage0/$(OBJECT_FILES)
 	$(QUIET_BIN_CLEAN) $(RM) $(BIN_FILES)
