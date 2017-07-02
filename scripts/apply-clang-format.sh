@@ -8,7 +8,7 @@ bootloader_root_dir=$(basename $base_dir)
 #
 # we should be runned from 0bt root dir
 #
-if [[ $"bootloader_root_dir" != "0bt" ]];
+if [[ "$bootloader_root_dir" != "0bt" ]];
 then
     echo -e "\033[31mError: \e[0mapply-clang-format.sh should be runned from root 0bt directory."
     exit 1
@@ -18,7 +18,7 @@ fi
 # directories with c++ code
 #
 tools_dir=$base_dir/tools
-x86_64_src=$base_dir/src/x86_64
+x86_64_src=$base_dir/src/x86
 
 #
 # apply clang script for this directories
