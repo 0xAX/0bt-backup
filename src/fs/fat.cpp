@@ -7,8 +7,10 @@
 
 #include "fat.hpp"
 
-void init_fat_fs()
+extern void write_string(const char *str);
+
+void init_fs()
 {
-	const char *init_fat = "fat_fs";
+	write_string("Fat module is loaded");
 	return;
 }

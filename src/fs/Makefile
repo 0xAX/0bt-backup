@@ -13,9 +13,7 @@ CXX_FLAGS += -nostdlib -c
 CXX_ARCH_32_BIT_ENTRY = --entry stage1_main
 CXX_ARCH_32_BIT_FLAGS += -march=i386 -m32 -mregparm=3
 
-ifdef USE_FAT_FS
 FS_OBJECTS += fat.o
-endif
 
 all: fs
 
