@@ -31,7 +31,6 @@ The following options can be passed to make:
   * `DEBUG=1` to enable debug mode.
   * `DISK_IMAGE=name.img` to change default name of a disk image.
   * `DISK_SIZE=4G` to specify image size.
-  * `USE_FAT` - to load kernel from FAT32 partition.
 
 `0bt` provides other targets besides the `all` target. For other options see the output of:
 
