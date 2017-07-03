@@ -20,3 +20,4 @@ initrd/bin/ps
 initrd/bin/sh
 initrd/bin/sysctl
 initrd/sbin
+mnt/*
