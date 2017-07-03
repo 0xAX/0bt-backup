@@ -30,6 +30,7 @@ modules and configuration file.
   * Setup IDT in protected mode.
   * Move `pm_entry` to C code.
   * Move `write_string()` into IO mod.
+  * Add support for formatting to `write_string()`.
 
 ## Other
 
