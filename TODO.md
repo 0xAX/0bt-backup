@@ -19,10 +19,14 @@ least one document.
 
   * Fallback to reading using CHS.
   * Calculate size of `stage1` during compilation and pass it to LBA.
+  * Use green foreground.
 
 ## Stage 1
 
   * Add `-DSERIAL_CONSOLE` support.
+  * Setup IDT in protected mode.
+  * Move `pm_entry` to C code.
+  * Move `write_string()` into IO mod.
 
 ## Other
 

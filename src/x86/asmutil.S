@@ -13,6 +13,11 @@
         .globl print_char
         .globl clear_screen
         .globl move_cursor
+	.globl goto_pm
+
+	.globl _start
+
+_start:
 /*
  * BIOS call "INT 0x10 Function 0x0E" to display a character on the screen,
  * advancing the cursor and scrolling the screen as necessary.
@@ -55,7 +60,7 @@ print_char:
  *                      %dh = lower row number
  *                      %dl = right column number
  */
-clear_screen:        
+clear_screen:
         mov $0x02, %ah
         xor %bx, %bx
         xor %dx, %dx
@@ -70,3 +75,42 @@ clear_screen:
         mov $80, %dl
         int $0x10
         ret
+
+goto_pm:
+	cli
+
+	lgdt gdt_init
+
+	movl %cr0, %eax
+	orl  $0x1, %eax
+	movl %eax, %cr0
+
+	ljmp $0x08, $pm_entry
+
+	.code32
+pm_entry:
+	xorl %eax, %eax
+	movl $0x10, %eax
+	movl %eax, %ds
+	movl %eax, %ss
+
+	/* TODO null them, we don't need in them */
+	movl %eax, %es
+	movl %eax, %fs
+	movl %eax, %gs
+
+	movl $0xffff, %esp
+	movl $0xffff, %ebp
+
+	ljmp $0x08, $(pm)
+
+.align 16
+.global gdt
+gdt:
+	.word	0,0,0,0				# reserved
+	.word	0xffff, 0x0000, 0x9a00, 0x00cf	# code seg 1 - kernel flat 4GB code
+	.word	0xffff, 0x0000, 0x9200, 0x00cf	# data
+
+gdt_init:
+	.word	gdt_init-gdt
+	.long	gdt
