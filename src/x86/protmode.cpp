@@ -5,9 +5,11 @@
  *
  */
 
-#include "fat.hpp"
+// write_string() should have the same address. This one function
+// is most needed in drivers.
+extern char inittext_begin[];
 
-void write_string(int colour, const char *string)
+void __attribute__((section(".inittext"))) write_string(int colour, const char *string)
 {
 	volatile char *video = (volatile char *)0xB8000;
 
@@ -20,15 +22,7 @@ void write_string(int colour, const char *string)
 
 void setup_pm()
 {
-	write_string(2, "Protected mode is enabled");
-
-#ifdef USE_FAT_FS
-	init_fat_fs();
-#endif
-
-#ifdef USE_EXT2_FS
-	init_ext2_fs();
-#endif
+	write_string(7, "Protected mode is enabled");
 
 	__asm__("hlt");
 }

@@ -11,9 +11,16 @@ SECTIONS
                 *(.text)
         }
 
+        inittext_begin = .;
+
+        .inittext :
+        {
+                *(.inittext)
+        }
+
+        inittext_end = .;
+
         .data : { *(.data) *(.rodata) *(.bss) }
  
         _end = .;
-
-        /DISCARD/ : { *(.eh_frame .comment) }
 }
