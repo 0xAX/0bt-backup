@@ -9,6 +9,9 @@ least one document.
 ## Tools
 
   * Add `0bt-install` program to install mbr.S to a given disk.
+  * The `0bt-install` should determine filesystem of a boot partition
+and put fs module to disk to. The stage1 will will load it to load other
+modules and configuration file.
 
 ## MBR stage 0
 
