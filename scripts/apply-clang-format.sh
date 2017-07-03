@@ -19,11 +19,13 @@ fi
 #
 tools_dir=$base_dir/tools
 x86_64_src=$base_dir/src/x86
+filesystems_src=$base_dir/src/fs
 
 #
 # apply clang script for this directories
 #
 find $tool_sdir -iname *.hpp -o -iname *.cpp | xargs clang-format -i
 find $x86_64_src -iname *.hpp -o -iname *.cpp | xargs clang-format -i
+find $filesystems_src -iname *.hpp -o -iname *.cpp | xargs clang-format -i
 
 exit 0
