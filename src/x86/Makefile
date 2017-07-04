@@ -66,7 +66,8 @@ $(MBR): stage0/mbr.S
 	$(QUIET_CC) $(CC) $(AS_FLAGS) $< -o $@
 
 %.o : %.cpp
-	$(QUIET_CC) $(CXX) $(CXX_FLAGS) $(CXX_ARCH_32_BIT_FLAGS) \
+	$(QUIET_CC) $(CXX) $(INCLUDE) $(CXX_FLAGS) \
+	$(CXX_ARCH_32_BIT_FLAGS) \
 	$(CXX_ARCH_32_BIT_ENTRY) $< -o $@
 
 64:

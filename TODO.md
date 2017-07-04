@@ -9,6 +9,9 @@ least one document.
 ## Tools
 
   * Add `0bt-install` program to install mbr.S to a given disk.
+  * The `0bt-install` should determine filesystem of a boot partition
+and put fs module to disk to. The stage1 will will load it to load other
+modules and configuration file.
 
 ## MBR stage 0
 
@@ -19,10 +22,15 @@ least one document.
 
   * Fallback to reading using CHS.
   * Calculate size of `stage1` during compilation and pass it to LBA.
+  * Use green foreground.
 
 ## Stage 1
 
   * Add `-DSERIAL_CONSOLE` support.
+  * Setup IDT in protected mode.
+  * Move `pm_entry` to C code.
+  * Move `write_string()` into IO mod.
+  * Add support for formatting to `write_string()`.
 
 ## Other
 
