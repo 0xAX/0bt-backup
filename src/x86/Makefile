@@ -16,6 +16,7 @@ STAGE1_OBJECTS += stage1.o
 STAGE1_OBJECTS += tty.o
 STAGE1_OBJECTS += protmode.o
 STAGE1_OBJECTS += asmutil.o
+STAGE1_OBJECTS += console.o
 
 #
 # linker scripts
@@ -46,6 +47,13 @@ CXX_FLAGS += -nostdlib -c
 CXX_ARCH_32_BIT_ENTRY = --entry stage1_main
 CXX_ARCH_32_BIT_FLAGS += -march=i386 -m32 -mregparm=3
 
+ifdef USE_FAT32_FS
+FS_OBJECTS = $(TOPDIR)/src/fs/fat.o
+FS_DEFINE = -DUSE_FAT32_FS=1
+endif
+
+INCLUDE = -I../fs
+
 all: $(STAGE1) $(STAGE0)
 
 $(STAGE0): $(MBR)
@@ -63,9 +71,8 @@ $(MBR): stage0/mbr.S
 	$(QUIET_CC) $(CC) $(AS_FLAGS) $< -o $@
 
 %.o : %.cpp
-	$(QUIET_CC) $(CXX) $(INCLUDE) $(CXX_FLAGS) \
-	$(CXX_ARCH_32_BIT_FLAGS) \
-	$(CXX_ARCH_32_BIT_ENTRY) $< -o $@
+	$(QUIET_CC) $(CXX) $(INCLUDE) $(CXX_FLAGS) $(FS_DEFINE) \
+	$(CXX_ARCH_32_BIT_FLAGS) $(CXX_ARCH_32_BIT_ENTRY) $< -o $@
 
 $(CLEAN):
 	$(QUIET_OBJS_CLEAN) $(RM) $(OBJECT_FILES)

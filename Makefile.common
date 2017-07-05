@@ -41,6 +41,11 @@ BUILD_BOOTLOADER = build-boot
 CREATE_DISK_PARTITIONS = create-disk-partitions
 
 #
+# filesystem related targets
+#
+USE_FAT32_FS = 1
+
+#
 # Standard tools
 #
 RM = rm -rf

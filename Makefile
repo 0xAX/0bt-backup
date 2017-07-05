@@ -9,6 +9,8 @@
 #  Define DISK_IMAGE = name.img to change default name of a disk image.
 #
 #  Define DISK_SIZE = 1G to set an image size. Default is 4G.
+#
+#  Define USE_FAT32_FS to load kernel from FAT32 partition
 
 include Makefile.common
 
