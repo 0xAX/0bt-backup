@@ -31,6 +31,7 @@ modules and configuration file.
   * Move `pm_entry` to C code.
   * Move `write_string()` into IO mod.
   * Add support for formatting to `write_string()`.
+  * Add scroll up to putchar.
 
 ## Other
 

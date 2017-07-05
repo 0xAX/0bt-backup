@@ -41,7 +41,7 @@ $(INSTALL):
 	$(DD) if=src/$(ARCH)/$(STAGE1) of=$(DISK_IMAGE) conv=notrunc count=3 seek=1 ibs=512
 
 $(RUN):
-	qemu-system-x86_64 -drive format=raw,file=$(DISK_IMAGE)
+	qemu-system-x86_64 -vga std -drive format=raw,file=$(DISK_IMAGE)
 
 $(BUILD_INITRD):
 	@echo "    GEN initrd"

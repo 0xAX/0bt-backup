@@ -7,6 +7,10 @@
 #ifndef CONSOLE_HPP
 #define CONSOLE_HPP
 
-void write_string(int colour, const char *string);
+#define LINES	80
+#define COLUMNS	25
+
+void putchar(char ch);
+void write_string(const char *str);
 
 #endif /* !CONSOLE_HPP */

@@ -10,7 +10,8 @@
 
 void setup_pm()
 {
-	write_string(7, "Protected mode is enabled");
+        write_string("Console is enabled\n");
+	write_string("Protected mode is enabled\n");
 
 	__asm__("hlt");
 }
