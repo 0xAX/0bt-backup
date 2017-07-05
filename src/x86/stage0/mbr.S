@@ -52,7 +52,7 @@ _start:
         /* TODO add description here */
 read_second_stage:
         movb $0x42, %ah
-	movw $disk_address_packet, %si
+		movw $disk_address_packet, %si
         int  $0x13
 
         /* Call secondary bootloader */
