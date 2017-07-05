@@ -12,9 +12,6 @@ void setup_pm()
 {
 	write_string(7, "Protected mode is enabled");
 
-#ifdef USE_FAT32_FS
-	init_fat_fs();
-#endif
 	__asm__("hlt");
 }
 
