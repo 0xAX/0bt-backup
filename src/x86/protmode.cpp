@@ -5,24 +5,13 @@
  *
  */
 
-// write_string() should have the same address. This one function
-// is most needed in drivers.
-extern char inittext_begin[];
-
-void __attribute__((section(".inittext"))) write_string(int colour, const char *string)
-{
-	volatile char *video = (volatile char *)0xB8000;
-
-	while (*string != 0)
-	{
-		*video++ = *string++;
-		*video++ = colour;
-	}
-}
+#include "fat.hpp"
+#include "console.hpp"
 
 void setup_pm()
 {
-	write_string(7, "Protected mode is enabled");
+        write_string("Console is enabled\n");
+	write_string("Protected mode is enabled\n");
 
 	__asm__("hlt");
 }

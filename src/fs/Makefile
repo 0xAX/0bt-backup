@@ -13,6 +13,8 @@ CXX_FLAGS += -nostdlib -c
 CXX_ARCH_32_BIT_ENTRY = --entry stage1_main
 CXX_ARCH_32_BIT_FLAGS += -march=i386 -m32 -mregparm=3
 
+INCLUDE = -I../x86
+
 FS_OBJECTS += fat.o
 
 all: fs
@@ -20,7 +22,7 @@ all: fs
 fs: $(FS_OBJECTS)
 
 %.o : %.cpp
-	$(QUIET_CC) $(CXX) $(CXX_FLAGS) $(CXX_ARCH_32_BIT_FLAGS) \
+	$(QUIET_CC) $(CXX) $(INCLUDE) $(CXX_FLAGS) $(CXX_ARCH_32_BIT_FLAGS) \
 	$(CXX_ARCH_32_BIT_ENTRY)  $< -o $@
 
 $(CLEAN):

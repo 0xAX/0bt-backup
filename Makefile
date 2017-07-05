@@ -9,6 +9,8 @@
 #  Define DISK_IMAGE = name.img to change default name of a disk image.
 #
 #  Define DISK_SIZE = 1G to set an image size. Default is 4G.
+#
+#  Define USE_FAT32_FS to load kernel from FAT32 partition
 
 include Makefile.common
 
@@ -39,7 +41,7 @@ $(INSTALL):
 	$(DD) if=src/$(ARCH)/$(STAGE1) of=$(DISK_IMAGE) conv=notrunc count=3 seek=1 ibs=512
 
 $(RUN):
-	qemu-system-x86_64 -drive format=raw,file=$(DISK_IMAGE)
+	qemu-system-x86_64 -vga std -drive format=raw,file=$(DISK_IMAGE)
 
 $(BUILD_INITRD):
 	@echo "    GEN initrd"
