@@ -16,6 +16,7 @@ STAGE1_OBJECTS += stage1.o
 STAGE1_OBJECTS += tty.o
 STAGE1_OBJECTS += protmode.o
 STAGE1_OBJECTS += asmutil.o
+STAGE1_OBJECTS += console.o
 
 #
 # linker scripts
@@ -49,13 +50,20 @@ CXX_ARCH_32_BIT_FLAGS += -march=i386 -m32 -mregparm=3
 CXX_ARCH_64_BIT_FLAGS += -mcmodel=small -m64
 CXX_ARCH_64_BIT_ENTRY = --entry x86_64_main
 
+ifdef USE_FAT32_FS
+FS_OBJECTS = $(TOPDIR)/src/fs/fat.o
+FS_DEFINE = -DUSE_FAT32_FS=1
+endif
+
+INCLUDE = -I../fs
+
 all: $(STAGE1) $(STAGE0)
 
 $(STAGE0): $(MBR)
 	$(QUIET_LD) $(LD) $(MBR_LD_FLAGS) $(MBR) -o $(STAGE0)
 
 $(STAGE1): 64 $(STAGE1_OBJECTS)
-	$(QUIET_LD) $(LD) $(STAGE1_LD_FLAGS) $(STAGE1_OBJECTS) -o $(STAGE1)
+	$(QUIET_LD) $(LD) $(STAGE1_LD_FLAGS) $(STAGE1_OBJECTS) $(FS_OBJECTS) -o $(STAGE1)
 
 $(MBR): stage0/mbr.S
 	$(eval STAGE1_SIZE = $(shell wc -c $(STAGE1) | sed -e 's/\s.*//'))
@@ -66,9 +74,8 @@ $(MBR): stage0/mbr.S
 	$(QUIET_CC) $(CC) $(AS_FLAGS) $< -o $@
 
 %.o : %.cpp
-	$(QUIET_CC) $(CXX) $(INCLUDE) $(CXX_FLAGS) \
-	$(CXX_ARCH_32_BIT_FLAGS) \
-	$(CXX_ARCH_32_BIT_ENTRY) $< -o $@
+	$(QUIET_CC) $(CXX) $(INCLUDE) $(CXX_FLAGS) $(FS_DEFINE) \
+	$(CXX_ARCH_32_BIT_FLAGS) $(CXX_ARCH_32_BIT_ENTRY) $< -o $@
 
 64:
 	@echo "    CC x86_64/longmode.o"

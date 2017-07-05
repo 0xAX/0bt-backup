@@ -10,7 +10,7 @@
 #
 #  Define DISK_SIZE = 1G to set an image size. Default is 4G.
 #
-#  Define USE_FAT_FS to load kernel from FAT32 partition
+#  Define USE_FAT32_FS to load kernel from FAT32 partition
 
 include Makefile.common
 

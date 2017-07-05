@@ -7,6 +7,6 @@
 #ifndef FAT_HPP
 #define FAT_HPP
 
-void init_fs();
+void init_fat_fs();
 
-#endif
+#endif /* !FAT_HPP */

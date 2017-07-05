@@ -43,7 +43,7 @@ CREATE_DISK_PARTITIONS = create-disk-partitions
 #
 # filesystem related targets
 #
-USE_FAT_FS = 1
+USE_FAT32_FS = 1
 
 #
 # Standard tools
