@@ -9,15 +9,17 @@
 
 #include <fstream>
 #include <iostream>
+#include <stdlib.h>
 
 using namespace std;
 
 #define MBR_SIZE 446
+#define VERSION "0.0.1"
 
 static const string default_disk_image = "disk.img";
 static const string default_mbr_path = "/boot/0bt/boot0_x86_64.bin";
 
-[[noreturn]] static void usage()
+static void usage()
 {
 	cout << "0bt-install Ver - " << VERSION << endl;
 	cout << "Usage: 0bt-install [diskname] [path to mbr]" << endl;
@@ -31,7 +33,7 @@ static void write_bootloader(const string *disk, const string *mbr)
 	fstream disk_fstream;
 	fstream mbr_fstream;
 
-	disk_fstream.open(*disk, fstream::in | fstream::binary);
+	disk_fstream.open(disk->c_str(), fstream::in | fstream::binary);
 
 	if (!disk_fstream)
 	{
@@ -39,7 +41,7 @@ static void write_bootloader(const string *disk, const string *mbr)
 		exit(1);
 	}
 
-	mbr_fstream.open(*mbr, fstream::in | fstream::binary);
+	mbr_fstream.open(mbr->c_str(), fstream::in | fstream::binary);
 
 	if (!mbr)
 	{
@@ -58,7 +60,7 @@ static void write_bootloader(const string *disk, const string *mbr)
 
 int main(int argc, char *argv[])
 {
-	const string *disk = nullptr;
+	const string *disk = NULL;
 	const string *mbr = &default_mbr_path;
 
 	if (argc == 2 && ((string(argv[1]).compare("-h") == 0) ||
