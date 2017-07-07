@@ -3,7 +3,8 @@ target
 *.img
 *.bin
 !mk/*
-.idea/
+.kdev4/
+0bt.kdev4
 *.hex
 0bt-install
 *.swp
