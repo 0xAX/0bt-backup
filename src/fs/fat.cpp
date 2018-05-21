@@ -9,7 +9,7 @@
 
 void init_fat_fs()
 {
-	write_string(2, "Fat module is loaded");
+	write_string("Fat module is loaded");
 
 	return;
 }
